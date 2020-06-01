@@ -16,13 +16,13 @@ function book(title, author, numberOfPages, ReadOrNot) {
 }
 
 book.prototype.info = function () {
-  console.log(
-    this.title,
-    this.author,
-    ",",
-    this.numberOfPages,
-    "pages",
-    ",",
+  return (
+    this.title +
+    this.author +
+    "," +
+    this.numberOfPages +
+    "pages" +
+    "," +
     this.ReadOrNot
   );
 };
@@ -34,14 +34,12 @@ function addBook(title, author, numberOfPages, ReadOrNot) {
 }
 
 function removeBook(name) {
-  let object = {};
-  const search = myLibrary.find((book) => book.title === titleOfTheBook);
+  const search = myLibrary.find((book) => book.title === name);
   if (!search) {
     console.log("Cant remove this book! Try again with the correct title");
   } else {
-    object = myLibrary.find((book) => book.title === name);
-    myLibrary.splice(myLibrary.indexOf(object), 1);
-    myLibrary = myLibrary.filter((item) => item !== object);
+    myLibrary.splice(myLibrary.indexOf(search), 1);
+    myLibrary = myLibrary.filter((item) => item !== search);
   }
 }
 
@@ -57,13 +55,10 @@ function editBook(categoryToEdit, titleOfTheBook, nameEdited) {
 }
 
 function getBook(titleOfTheBook) {
-  let object = new book();
-  object.prototype = Object.create(book.prototype);
   const search = myLibrary.find((book) => book.title === titleOfTheBook);
   if (!search) {
     console.log("Sorry but this book dont exist");
   } else {
-    object = myLibrary.find((book) => book.title === name);
-    object.info();
+    return search.info();
   }
 }
