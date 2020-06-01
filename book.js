@@ -26,44 +26,21 @@ function addBook(title, author, numberOfPages, ReadOrNot) {
 
 function removeBook(name) {
   let object = {};
-  myLibrary.forEach((bookInfos) => {
-    if (bookInfos.title == name) {
-      object = bookInfos;
-    }
-  });
-  myLibrary.splice(myLibrary.indexOf(object), 1);
-  myLibrary = myLibrary.filter((item) => item !== object);
+  if (myLibrary.find((book) => book.title === name)) {
+    object = myLibrary.find((book) => book.title === name);
+    myLibrary.splice(myLibrary.indexOf(object), 1);
+    myLibrary = myLibrary.filter((item) => item !== object);
+  } else {
+    console.log("Cant remove this book! Try again with the correct title");
+  }
 }
 
 function editBook(categoryToEdit, titleOfTheBook, nameEdited) {
-  switch (categoryToEdit) {
-    case "title":
-      myLibrary.forEach((books) => {
-        if (books.title === titleOfTheBook) {
-          books.title = nameEdited;
-        }
-      });
-      break;
-    case "author":
-      myLibrary.forEach((books) => {
-        if (books.title === titleOfTheBook) {
-          books.author = nameEdited;
-        }
-      });
-      break;
-    case "numberOfPage":
-      myLibrary.forEach((books) => {
-        if (books.title === titleOfTheBook) {
-          books.numberOfPages = nameEdited;
-        }
-      });
-      break;
-    case "readOrNot":
-      myLibrary.forEach((books) => {
-        if (books.title === titleOfTheBook) {
-          books.ReadOrNot = nameEdited;
-        }
-      });
-      break;
+  const category = categoryToEdit;
+  if (myLibrary.find((book) => book.title === titleOfTheBook)) {
+    const bookObject = myLibrary.find((book) => book.title === titleOfTheBook);
+    bookObject[category] = nameEdited;
+  } else {
+    console.log("Cant remove this book! Try again with the correct title");
   }
 }
